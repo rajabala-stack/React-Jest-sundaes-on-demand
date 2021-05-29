@@ -1,11 +1,22 @@
+import Popover from 'react-bootstrap/Popover';
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
-
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 export default function SummaryForm() {
   const [disabled, setDisabled] = useState(false);
+
+  const popover = (
+    <Popover id='popover-basic'>
+      <Popover.Content>No ice cream will actually be delivered</Popover.Content>
+    </Popover>
+  );
   const checkboxLabel = (
     <label htmlFor='terms-and-conditions'>
-      I agree to <span style={{ color: 'blue' }}>Terms and conditions</span>
+      I agree to{' '}
+      <OverlayTrigger placement='right' overlay={popover}>
+        <span style={{ color: 'blue' }}>Terms and conditions</span>
+      </OverlayTrigger>
     </label>
   );
   return (
@@ -18,7 +29,7 @@ export default function SummaryForm() {
           label={checkboxLabel}
         />
       </Form.Group>
-      <button disabled={!disabled}>Confirm Order</button>
+      <Button disabled={!disabled}>Confirm Order</Button>
     </Form>
   );
 }
